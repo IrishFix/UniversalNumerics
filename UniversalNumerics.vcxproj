@@ -22,15 +22,19 @@
     <Folder Include="assets\" />
     <Folder Include="docs\" />
     <Folder Include="examples\" />
-    <Folder Include="include\UniversalNumerics\" />
     <Folder Include="libs\" />
     <Folder Include="scripts\" />
-    <Folder Include="src\" />
     <Folder Include="tests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CHANGELOG.md" />
     <Content Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Tensor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\UniversalNumerics\Tensor.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

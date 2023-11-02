@@ -1,9 +1,18 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(UniversalNumerics)
+
 set(SOURCES
-    # Source files here
+    src/Tensor.cpp
+    # ... other source files ...
 )
 
-set(HEADERS
-    # Header files here
-)
+add_library(UniversalNumerics SHARED ${SOURCES})
 
-add_library(UniversalNumerics SHARED $ {SOURCES} ${HEADERS})
+target_include_directories(UniversalNumerics PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+set_target_properties(UniversalNumerics PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)
