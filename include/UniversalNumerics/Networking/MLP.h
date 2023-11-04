@@ -7,4 +7,4 @@ class MLP {
 };
 
 
-#endif //UNIVERSALNUMERICS_MLP_H
+#endif

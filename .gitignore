@@ -7,3 +7,4 @@ riderModule.iml
 .idea/
 /tests/cmake-build-debug/
 /src/cmake-build-debug/
+/x64/

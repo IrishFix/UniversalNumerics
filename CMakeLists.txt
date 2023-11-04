@@ -1,15 +1,17 @@
-project(UniversalNumerics)
-
 cmake_minimum_required(VERSION 3.10)
 
+project(UniversalNumerics)
+
 set(SOURCES
-        Networking/MLP.cpp
+        src/Networking/MLP.cpp
         # ... other source files ...
 )
 
+add_subdirectory(tests)
+
 add_library(UniversalNumerics SHARED ${SOURCES})
 
-target_include_directories(UniversalNumerics PUBLIC ../include)
+target_include_directories(UniversalNumerics PUBLIC include)
 
 set_target_properties(UniversalNumerics PROPERTIES
     CXX_STANDARD 17
