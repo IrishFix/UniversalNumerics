@@ -7,6 +7,32 @@
 #include <numeric>
 
 template <typename T>
+class Tensor;
+
+template <typename T>
+class TensorSlice {
+private:
+    Tensor<T>& tensor;
+    std::vector<size_t> indices;
+
+public:
+    TensorSlice(Tensor<T>& tensor, size_t firstIndex) : tensor(tensor) {
+        indices.push_back(firstIndex);
+    }
+
+    TensorSlice<T>& operator[](size_t index) {
+        indices.push_back(index);
+        return *this;
+    }
+
+    T& at(size_t index) {
+        std::vector<size_t> newIndices = indices;
+        newIndices.push_back(index);
+        return tensor(newIndices);
+    }
+};
+
+template <typename T>
 class Tensor {
 private:
     std::vector<T> data;
@@ -28,10 +54,9 @@ public:
     Tensor(std::initializer_list<size_t> dims, const T& initial_value = T()) {
         shape.assign(dims);
         compute_strides();
-        data.assign(std::accumulate(shape.begin(), shape.end(), 1, std::multiplies<size_t>()), initial_value);
+        data.assign(std::accumulate(shape.begin(), shape.end(), size_t(1), std::multiplies<size_t>()), initial_value);
     }
 
-    // Access elements.
     T& operator()(const std::vector<size_t>& indices) {
         size_t index = 0;
         for (size_t i = 0; i < indices.size(); ++i) {
@@ -48,14 +73,18 @@ public:
         return data[index];
     }
 
-    const std::vector<size_t>& get_shape() const { return shape; }
-    const std::vector<size_t>& get_strides() const { return strides; }
+    TensorSlice<T> operator[](size_t index) {
+       return TensorSlice<T>(*this, index);
+    }
+
+    [[nodiscard]] const std::vector<size_t>& get_shape() const { return shape; }
+    [[nodiscard]] const std::vector<size_t>& get_strides() const { return strides; }
 
     void fill(const T& value) {
         std::fill(data.begin(), data.end(), value);
     }
 
-    size_t size() const {
+    [[nodiscard]] size_t size() const {
         return data.size();
     }
 };
